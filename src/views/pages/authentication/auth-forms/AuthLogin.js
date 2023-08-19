@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -35,6 +37,9 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import Google from 'assets/images/icons/social-google.svg';
 
+// redux imports
+import { login } from '../../../../store/authReducer';
+
 // ============================|| FIREBASE - LOGIN ||============================ //
 
 const FirebaseLogin = ({ ...others }) => {
@@ -43,6 +48,9 @@ const FirebaseLogin = ({ ...others }) => {
   const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
   const customization = useSelector((state) => state.customization);
   const [checked, setChecked] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const googleHandler = async () => {
     console.error('Login');
@@ -120,7 +128,7 @@ const FirebaseLogin = ({ ...others }) => {
 
       <Formik
         initialValues={{
-          email: 'info@codedthemes.com',
+          email: 'info@digitalcoffee.com',
           password: '123456',
           submit: null
         }}
@@ -134,6 +142,22 @@ const FirebaseLogin = ({ ...others }) => {
               setStatus({ success: true });
               setSubmitting(false);
             }
+            dispatch(login(values), setLoading(true))
+              .then((res) => {
+                if (res.meta.requestStatus === 'fulfilled') {
+                  setLoading(false);
+                  toast.success('Logged in successfully');
+                  navigate('/dashboard/default');
+                }
+                if (res.meta.requestStatus === 'rejected') {
+                  setLoading(false);
+                  toast.error(res.payload);
+                }
+              })
+              .catch((err) => {
+                setLoading(false);
+                console.error(err);
+              });
           } catch (err) {
             console.error(err);
             if (scriptedRef.current) {
@@ -216,7 +240,7 @@ const FirebaseLogin = ({ ...others }) => {
             <Box sx={{ mt: 2 }}>
               <AnimateButton>
                 <Button disableElevation disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained" color="secondary">
-                  Sign in
+                  {loading ? 'Loading...' : 'Sign in'}
                 </Button>
               </AnimateButton>
             </Box>

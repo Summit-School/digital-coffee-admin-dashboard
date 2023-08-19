@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Table from 'ui-component/table/Table';
+import { useDispatch } from 'react-redux';
+import { readAllPlans } from '../../../store/plansReducer';
 
 const Plans = () => {
-  const data = [
-    { category: 'John Dave', price: 'john@gmail.com', duration: 672491296, description: 'Free', date: '13-05-2023' },
-    { category: 'Bren Micheal', price: 'bren@gmail.com', duration: 672491296, description: 'Free', date: '13-05-2023' },
-    { category: 'Marry Jane', price: 'marry@gmail.com', duration: 672491296, description: 'Premium', date: '13-05-2023' },
-    { category: 'Shohail Holmes', price: 'shohail@gmail.com', duration: 672491296, description: 'Free', date: '13-05-2023' },
-    { category: 'Aseka Jenipha', price: 'aseka@gmail.com', duration: 672491296, description: 'Pro', date: '13-05-2023' },
-    { category: 'Meuko Samuel', price: 'meuko@gmail.com', duration: 672491296, description: 'Expert', date: '13-05-2023' }
-  ];
+  const dispatch = useDispatch();
+  const [plans, setPlans] = useState([]);
+
+  useEffect(() => {
+    dispatch(readAllPlans()).then((res) => {
+      const editable = res.payload.map((o) => ({ ...o }));
+      setPlans(editable);
+    });
+  }, [dispatch]);
+
   const columns = [
     {
       title: 'Category',
@@ -25,15 +29,15 @@ const Plans = () => {
     },
     {
       title: 'Description',
-      field: 'description'
+      field: 'desc'
     },
     {
       title: 'Date',
-      field: 'date'
+      field: 'createdAt'
     }
   ];
 
-  return <Table title="Premium plans" data={data} columns={columns} />;
+  return <Table title="Premium plans" data={plans} columns={columns} />;
 };
 
 export default Plans;

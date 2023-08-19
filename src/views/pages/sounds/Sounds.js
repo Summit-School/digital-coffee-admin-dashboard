@@ -1,51 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Table from 'ui-component/table/Table';
+import { useDispatch } from 'react-redux';
+import { readAllSounds } from '../../../store/soundReducer';
 
 const Sounds = () => {
-  const data = [
-    {
-      title: 'John Dave',
-      category: 'john@gmail.com',
-      coverAlbum: 'https://image.shutterstock.com/image-photo/small-juicy-hamburger-canapes-on-260nw-570368917.jpg',
-      premiumPlan: 'Free',
-      date: '13-05-2023'
-    },
-    {
-      title: 'Bren Micheal',
-      category: 'bren@gmail.com',
-      coverAlbum: 'https://image.shutterstock.com/image-photo/small-juicy-hamburger-canapes-on-260nw-570368917.jpg',
-      premiumPlan: 'Free',
-      date: '13-05-2023'
-    },
-    {
-      title: 'Marry Jane',
-      category: 'marry@gmail.com',
-      coverAlbum: 'https://image.shutterstock.com/image-photo/small-juicy-hamburger-canapes-on-260nw-570368917.jpg',
-      premiumPlan: 'Premium',
-      date: '13-05-2023'
-    },
-    {
-      title: 'Shohail Holmes',
-      category: 'shohail@gmail.com',
-      coverAlbum: 'https://image.shutterstock.com/image-photo/small-juicy-hamburger-canapes-on-260nw-570368917.jpg',
-      premiumPlan: 'Free',
-      date: '13-05-2023'
-    },
-    {
-      title: 'Aseka Jenipha',
-      category: 'aseka@gmail.com',
-      coverAlbum: 'https://image.shutterstock.com/image-photo/small-juicy-hamburger-canapes-on-260nw-570368917.jpg',
-      premiumPlan: 'Pro',
-      date: '13-05-2023'
-    },
-    {
-      title: 'Meuko Samuel',
-      category: 'meuko@gmail.com',
-      coverAlbum: 'https://image.shutterstock.com/image-photo/small-juicy-hamburger-canapes-on-260nw-570368917.jpg',
-      premiumPlan: 'Expert',
-      date: '13-05-2023'
-    }
-  ];
+  const dispatch = useDispatch();
+  const [sounds, setSounds] = useState([]);
+  console.log(sounds);
+
+  useEffect(() => {
+    dispatch(readAllSounds()).then((res) => {
+      const editable = res.payload.map((o) => ({ ...o }));
+      setSounds(editable);
+    });
+  }, [dispatch]);
   const columns = [
     {
       title: 'Title',
@@ -57,22 +25,35 @@ const Sounds = () => {
     },
     {
       title: 'Cover Album',
-      field: 'coverAlbum',
+      field: 'coverImage',
       width: 150,
       editable: true,
-      render: (params) => <img src={params.coverAlbum} alt={params.coverAlbum} style={{ borderRadius: '50%' }} height="40" width="40" />
+      render: (params) => (
+        <img src={params.coverImage.img} alt={params.coverImage.img} style={{ borderRadius: '50%' }} height="40" width="40" />
+      )
     },
     {
       title: 'Premium plan',
-      field: 'premiumPlan'
+      field: 'premium'
+    },
+    {
+      title: 'Link',
+      field: 'filePath',
+      width: 150,
+      editable: true,
+      render: (params) => (
+        <a href={params.filePath.snd} target="_blank" rel="noreferrer">
+          Click to play
+        </a>
+      )
     },
     {
       title: 'Date',
-      field: 'date'
+      field: 'createdAt'
     }
   ];
 
-  return <Table title="Sounds" data={data} columns={columns} />;
+  return <Table title="Sounds" data={sounds} columns={columns} />;
 };
 
 export default Sounds;
