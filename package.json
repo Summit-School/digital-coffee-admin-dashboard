@@ -2,7 +2,7 @@
   "name": "digital-coffee",
   "version": "3.3.2",
   "private": true,
-  "homepage": "https://berrydashboard.io/free",
+  "homepage": "http://localhost:3000",
   "dependencies": {
     "@emotion/cache": "^11.9.3",
     "@emotion/react": "^11.9.3",
