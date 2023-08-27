@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
-
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -9,21 +9,21 @@ import {
   Avatar,
   Box,
   Card,
-  CardContent,
+  // CardContent,
   Chip,
   ClickAwayListener,
-  Divider,
+  // Divider,
   Grid,
-  InputAdornment,
+  // InputAdornment,
   List,
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  OutlinedInput,
+  // OutlinedInput,
   Paper,
   Popper,
-  Stack,
-  Switch,
+  // Stack,
+  // Switch,
   Typography
 } from '@mui/material';
 
@@ -33,22 +33,27 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 import Transitions from 'ui-component/extended/Transitions';
-import UpgradePlanCard from './UpgradePlanCard';
+// import UpgradePlanCard from './UpgradePlanCard';
 import User1 from 'assets/images/users/user-round.svg';
 
 // assets
-import { IconLogout, IconSearch, IconSettings, IconUser } from '@tabler/icons';
+import { IconLogout, IconSettings, IconUser } from '@tabler/icons';
+
+// redux import
+import { logout } from 'store/authReducer';
 
 // ==============================|| PROFILE MENU ||============================== //
 
 const ProfileSection = () => {
   const theme = useTheme();
   const customization = useSelector((state) => state.customization);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const [sdm, setSdm] = useState(true);
-  const [value, setValue] = useState('');
-  const [notification, setNotification] = useState(false);
+  // const [sdm, setSdm] = useState(true);
+  // const [value, setValue] = useState('');
+  // const [notification, setNotification] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [open, setOpen] = useState(false);
   /**
@@ -56,7 +61,19 @@ const ProfileSection = () => {
    * */
   const anchorRef = useRef(null);
   const handleLogout = async () => {
-    console.log('Logout');
+    dispatch(logout())
+      .then((res) => {
+        setLoading(true);
+        if (res.meta.requestStatus === 'fulfilled') {
+          setLoading(false);
+          toast.success('Logout successful');
+          navigate('/pages/login/login3');
+        }
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.error(err);
+      });
   };
 
   const handleClose = (event) => {
@@ -154,7 +171,7 @@ const ProfileSection = () => {
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
                 <MainCard border={false} elevation={16} content={false} boxShadow shadow={theme.shadows[16]}>
-                  <Box sx={{ p: 2 }}>
+                  {/* <Box sx={{ p: 2 }}>
                     <Stack>
                       <Stack direction="row" spacing={0.5} alignItems="center">
                         <Typography variant="h4">Good Morning,</Typography>
@@ -181,18 +198,18 @@ const ProfileSection = () => {
                       }}
                     />
                     <Divider />
-                  </Box>
+                  </Box> */}
                   <PerfectScrollbar style={{ height: '100%', maxHeight: 'calc(100vh - 250px)', overflowX: 'hidden' }}>
                     <Box sx={{ p: 2 }}>
-                      <UpgradePlanCard />
-                      <Divider />
+                      {/* <UpgradePlanCard /> */}
+                      {/* <Divider /> */}
                       <Card
                         sx={{
                           bgcolor: theme.palette.primary.light,
                           my: 2
                         }}
                       >
-                        <CardContent>
+                        {/* <CardContent>
                           <Grid container spacing={3} direction="column">
                             <Grid item>
                               <Grid item container alignItems="center" justifyContent="space-between">
@@ -226,9 +243,9 @@ const ProfileSection = () => {
                               </Grid>
                             </Grid>
                           </Grid>
-                        </CardContent>
+                        </CardContent> */}
                       </Card>
-                      <Divider />
+                      {/* <Divider /> */}
                       <List
                         component="nav"
                         sx={{
@@ -291,7 +308,7 @@ const ProfileSection = () => {
                           <ListItemIcon>
                             <IconLogout stroke={1.5} size="1.3rem" />
                           </ListItemIcon>
-                          <ListItemText primary={<Typography variant="body2">Logout</Typography>} />
+                          <ListItemText primary={<Typography variant="body2">{loading ? 'Loading...' : 'Logout'}</Typography>} />
                         </ListItemButton>
                       </List>
                     </Box>

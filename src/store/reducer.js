@@ -6,6 +6,7 @@ import authReducer from './authReducer';
 import planCatsReducers from './planCatsReducers';
 import plansReducer from './plansReducer';
 import soundReducer from './soundReducer';
+import usersReducer from './usersReducer';
 
 // ==============================|| COMBINE REDUCER ||============================== //
 
@@ -14,7 +15,8 @@ const reducer = combineReducers({
   auth: authReducer,
   planCategories: planCatsReducers,
   plans: plansReducer,
-  sound: soundReducer
+  sound: soundReducer,
+  users: usersReducer
 });
 
 export default reducer;

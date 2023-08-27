@@ -30,22 +30,37 @@ const UtilsTablerIcons = Loadable(lazy(() => import('views/utilities/TablerIcons
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 
+// importing protecting routes components
+import Protected from './ProtectedRoutes';
+
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
   path: '/',
-  element: <MainLayout />,
+  element: (
+    <Protected>
+      <MainLayout />
+    </Protected>
+  ),
   children: [
     {
       path: '/',
-      element: <DashboardDefault />
+      element: (
+        <Protected>
+          <DashboardDefault />
+        </Protected>
+      )
     },
     {
       path: 'dashboard',
       children: [
         {
           path: 'default',
-          element: <DashboardDefault />
+          element: (
+            <Protected>
+              <DashboardDefault />
+            </Protected>
+          )
         }
       ]
     },
@@ -55,7 +70,11 @@ const MainRoutes = {
       children: [
         {
           path: 'users',
-          element: <UsersListing />
+          element: (
+            <Protected>
+              <UsersListing />
+            </Protected>
+          )
         }
       ]
     },
@@ -65,7 +84,11 @@ const MainRoutes = {
       children: [
         {
           path: 'sounds',
-          element: <SoundsListing />
+          element: (
+            <Protected>
+              <SoundsListing />
+            </Protected>
+          )
         }
       ]
     },
@@ -74,7 +97,11 @@ const MainRoutes = {
       children: [
         {
           path: 'add-sound',
-          element: <AddSound />
+          element: (
+            <Protected>
+              <AddSound />
+            </Protected>
+          )
         }
       ]
     },
@@ -84,7 +111,11 @@ const MainRoutes = {
       children: [
         {
           path: 'plans',
-          element: <PlansListing />
+          element: (
+            <Protected>
+              <PlansListing />
+            </Protected>
+          )
         }
       ]
     },
@@ -93,7 +124,11 @@ const MainRoutes = {
       children: [
         {
           path: 'add-plan',
-          element: <AddPlan />
+          element: (
+            <Protected>
+              <AddPlan />
+            </Protected>
+          )
         }
       ]
     },
@@ -102,7 +137,11 @@ const MainRoutes = {
       children: [
         {
           path: 'categories',
-          element: <PlansCategoryListing />
+          element: (
+            <Protected>
+              <PlansCategoryListing />
+            </Protected>
+          )
         }
       ]
     },
@@ -111,7 +150,11 @@ const MainRoutes = {
       children: [
         {
           path: 'add-category',
-          element: <AddPlanCategory />
+          element: (
+            <Protected>
+              <AddPlanCategory />
+            </Protected>
+          )
         }
       ]
     },
@@ -121,7 +164,11 @@ const MainRoutes = {
       children: [
         {
           path: 'util-typography',
-          element: <UtilsTypography />
+          element: (
+            <Protected>
+              <UtilsTypography />
+            </Protected>
+          )
         }
       ]
     },
@@ -130,7 +177,11 @@ const MainRoutes = {
       children: [
         {
           path: 'util-color',
-          element: <UtilsColor />
+          element: (
+            <Protected>
+              <UtilsColor />
+            </Protected>
+          )
         }
       ]
     },
@@ -139,7 +190,11 @@ const MainRoutes = {
       children: [
         {
           path: 'util-shadow',
-          element: <UtilsShadow />
+          element: (
+            <Protected>
+              <UtilsShadow />
+            </Protected>
+          )
         }
       ]
     },
@@ -149,7 +204,11 @@ const MainRoutes = {
       children: [
         {
           path: 'tabler-icons',
-          element: <UtilsTablerIcons />
+          element: (
+            <Protected>
+              <UtilsTablerIcons />
+            </Protected>
+          )
         }
       ]
     },
@@ -158,14 +217,22 @@ const MainRoutes = {
       children: [
         {
           path: 'material-icons',
-          element: <UtilsMaterialIcons />
+          element: (
+            <Protected>
+              <UtilsMaterialIcons />
+            </Protected>
+          )
         }
       ]
     },
     // sample pages routes
     {
       path: 'sample-page',
-      element: <SamplePage />
+      element: (
+        <Protected>
+          <SamplePage />
+        </Protected>
+      )
     }
   ]
 };

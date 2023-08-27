@@ -30,7 +30,7 @@ export const login = createAsyncThunk('authentication/login', async (data, thunk
 });
 
 export const logout = createAsyncThunk('authentication/logout', async () => {
-  return localStorage.removeItem('user');
+  return localStorage.removeItem('digital-coffee-user');
 });
 
 export const authSlice = createSlice({

@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Grid, MenuItem, TextField, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 
 // third-party
 import ApexCharts from 'apexcharts';
-import Chart from 'react-apexcharts';
+// import Chart from 'react-apexcharts';
 
 // project imports
 import SkeletonTotalGrowthBarChart from 'ui-component/cards/Skeleton/TotalGrowthBarChart';
@@ -18,25 +18,28 @@ import { gridSpacing } from 'store/constant';
 // chart data
 import chartData from './chart-data/total-growth-bar-chart';
 
-const status = [
-  {
-    value: 'today',
-    label: 'Today'
-  },
-  {
-    value: 'month',
-    label: 'This Month'
-  },
-  {
-    value: 'year',
-    label: 'This Year'
-  }
-];
+// users data
+import Users from 'ui-component/users/Users';
+
+// const status = [
+//   {
+//     value: 'today',
+//     label: 'Today'
+//   },
+//   {
+//     value: 'month',
+//     label: 'This Month'
+//   },
+//   {
+//     value: 'year',
+//     label: 'This Year'
+//   }
+// ];
 
 // ==============================|| DASHBOARD DEFAULT - TOTAL GROWTH BAR CHART ||============================== //
 
 const TotalGrowthBarChart = ({ isLoading }) => {
-  const [value, setValue] = useState('today');
+  // const [value, setValue] = useState('today');
   const theme = useTheme();
   const customization = useSelector((state) => state.customization);
 
@@ -98,28 +101,29 @@ const TotalGrowthBarChart = ({ isLoading }) => {
             <Grid item xs={12}>
               <Grid container alignItems="center" justifyContent="space-between">
                 <Grid item>
-                  <Grid container direction="column" spacing={1}>
+                  {/* <Grid container direction="column" spacing={1}>
                     <Grid item>
                       <Typography variant="subtitle2">Total Growth</Typography>
                     </Grid>
                     <Grid item>
                       <Typography variant="h3">$2,324.00</Typography>
                     </Grid>
-                  </Grid>
+                  </Grid> */}
                 </Grid>
                 <Grid item>
-                  <TextField id="standard-select-currency" select value={value} onChange={(e) => setValue(e.target.value)}>
+                  {/* <TextField id="standard-select-currency" select value={value} onChange={(e) => setValue(e.target.value)}>
                     {status.map((option) => (
                       <MenuItem key={option.value} value={option.value}>
                         {option.label}
                       </MenuItem>
                     ))}
-                  </TextField>
+                  </TextField> */}
                 </Grid>
               </Grid>
             </Grid>
             <Grid item xs={12}>
-              <Chart {...chartData} />
+              {/* <Chart {...chartData} /> */}
+              <Users />
             </Grid>
           </Grid>
         </MainCard>

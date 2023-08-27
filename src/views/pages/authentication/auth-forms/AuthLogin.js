@@ -128,8 +128,8 @@ const FirebaseLogin = ({ ...others }) => {
 
       <Formik
         initialValues={{
-          email: 'info@digitalcoffee.com',
-          password: '123456',
+          email: '',
+          password: '',
           submit: null
         }}
         validationSchema={Yup.object().shape({
@@ -159,7 +159,6 @@ const FirebaseLogin = ({ ...others }) => {
                 console.error(err);
               });
           } catch (err) {
-            console.error(err);
             if (scriptedRef.current) {
               setStatus({ success: false });
               setErrors({ submit: err.message });
