@@ -9,8 +9,8 @@ const Sounds = () => {
 
   useEffect(() => {
     dispatch(readAllSounds()).then((res) => {
-      const editable = res.payload.map((o) => ({ ...o }));
-      setSounds(editable);
+      const edita = res.payload.map((o) => ({ ...o }));
+      setSounds(edita);
     });
   }, [dispatch]);
   const columns = [
@@ -26,7 +26,6 @@ const Sounds = () => {
       title: 'Cover Album',
       field: 'coverImage',
       width: 150,
-      editable: true,
       render: (params) => (
         <img src={params.coverImage.img} alt={params.coverImage.img} style={{ borderRadius: '50%' }} height="40" width="40" />
       )
@@ -39,7 +38,6 @@ const Sounds = () => {
       title: 'Link',
       field: 'filePath',
       width: 150,
-      editable: true,
       render: (params) => (
         <a href={params.filePath.snd} target="_blank" rel="noreferrer">
           Click to play

@@ -9,8 +9,8 @@ const Users = () => {
 
   useEffect(() => {
     dispatch(readAllUsers()).then((res) => {
-      const editable = res.payload.users.map((o) => ({ ...o }));
-      setUsers(editable);
+      const yeah = res.payload.users.map((o) => ({ ...o }));
+      setUsers(yeah);
     });
   }, [dispatch]);
 
@@ -52,6 +52,7 @@ const Users = () => {
       field: 'createdAt'
     }
   ];
+
   return <Table title="Users" data={users} columns={columns} />;
 };
 
