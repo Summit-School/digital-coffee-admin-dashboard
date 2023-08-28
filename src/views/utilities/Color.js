@@ -84,13 +84,13 @@ const UIColor = () => (
         <SubCard title="Secondary Color">
           <Grid container spacing={gridSpacing}>
             <Grid item xs={12} sm={6} md={4} lg={2}>
-              <ColorBox bgcolor="secondary.light" data={{ label: 'DeepPurple-50', color: '#cbc3e3' }} title="secondary.light" dark />
+              <ColorBox bgcolor="secondary.light" data={{ label: 'DeepPurple-50', color: '#ede7f6' }} title="secondary.light" dark />
             </Grid>
             <Grid item xs={12} sm={6} md={4} lg={2}>
               <ColorBox bgcolor="secondary.200" data={{ label: 'DeepPurple-200', color: '#b39ddb' }} title="secondary[200]" dark />
             </Grid>
             <Grid item xs={12} sm={6} md={4} lg={2}>
-              <ColorBox bgcolor="secondary.main" data={{ label: 'DeepPurple-500', color: '#800080' }} title="secondary.main" />
+              <ColorBox bgcolor="secondary.main" data={{ label: 'DeepPurple-500', color: '#673ab7' }} title="secondary.main" />
             </Grid>
             <Grid item xs={12} sm={6} md={4} lg={2}>
               <ColorBox bgcolor="secondary.dark" data={{ label: 'DeepPurple-600', color: '#5e35b1' }} title="secondary.dark" />
