@@ -14,8 +14,6 @@ const Users = () => {
     });
   }, [dispatch]);
 
-  console.log(users);
-
   const columns = [
     {
       title: 'First name',
