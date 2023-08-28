@@ -152,7 +152,6 @@ const FirebaseLogin = ({ ...others }) => {
                 if (res.meta.requestStatus === 'rejected') {
                   setLoading(false);
                   toast.error(res.payload);
-                  toast.error(res.payload);
                 }
               })
               .catch((err) => {
