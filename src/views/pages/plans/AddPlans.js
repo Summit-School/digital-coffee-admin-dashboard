@@ -92,6 +92,7 @@ const AddPlans = () => {
             onChange={(e) => setDuration(e.target.value)}
           >
             <MenuItem value={1}>One month</MenuItem>
+            <MenuItem value={3}>Three months</MenuItem>
             <MenuItem value={6}>Six months</MenuItem>
             <MenuItem value={12}>One year</MenuItem>
           </Select>
