@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -10,7 +10,7 @@ import MainCard from 'ui-component/cards/MainCard';
 // redux imports
 import { useDispatch } from 'react-redux';
 // import { readAll } from '../../../store/planCatsReducers';
-import { readAllPlans } from '../../../store/plansReducer';
+// import { readAllPlans } from '../../../store/plansReducer';
 import { upload } from '../../../store/soundReducer';
 
 import { toast } from 'react-toastify';
@@ -18,7 +18,6 @@ import { toast } from 'react-toastify';
 const AddSound = () => {
   const [loading, setLoading] = useState(false);
   // const [categories, setCategories] = useState([]);
-  const [plans, setPlans] = useState([]);
   const dispatch = useDispatch();
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
@@ -26,24 +25,13 @@ const AddSound = () => {
   const [coverAlbum, setCoverAlbum] = useState(null);
   const [sound, setSound] = useState(null);
 
-  useEffect(() => {
-    // dispatch(readAll()).then((res) => {
-    //   const editable = res.payload.map((o) => ({ ...o }));
-    //   setCategories(editable);
-    // });
-    dispatch(readAllPlans()).then((res) => {
-      const editable = res.payload.map((o) => ({ ...o }));
-      setPlans(editable);
-    });
-  }, [dispatch]);
-
   const handleSoundFunction = () => {
     let data = new FormData();
     data.append('title', title);
     data.append('category', category);
     data.append('coverImage', coverAlbum);
     data.append('sound', sound);
-    data.append('premium', plan.category);
+    data.append('premium', plan);
 
     dispatch(upload(data), setLoading(true))
       .then((res) => {
@@ -104,12 +92,8 @@ const AddSound = () => {
             label="Premium"
             onChange={(e) => setPlan(e.target.value)}
           >
-            {plans &&
-              plans.map((item) => (
-                <MenuItem value={item} key={item._id}>
-                  {item.category}
-                </MenuItem>
-              ))}
+            <MenuItem value="free">Free</MenuItem>
+            <MenuItem value="premium">Premium</MenuItem>
           </Select>
         </FormControl>
         <FormControl fullWidth sx={{ mb: 2 }}>
